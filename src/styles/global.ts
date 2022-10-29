@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 body {
   color: ${props => props.theme.text};
   background-color: ${props => props.theme.background};
+  font-size: 1rem;
 }
 
 
@@ -20,5 +21,9 @@ body, span, button, input, textarea {
 
 button {
   cursor: pointer;
+}
+
+a {
+  color: inherit;
 }
 `;
