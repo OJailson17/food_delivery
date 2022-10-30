@@ -1,3 +1,5 @@
+import { GetServerSideProps } from 'next';
+import { signIn, getSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -36,7 +38,7 @@ const Login = () => {
 					<span>ou</span>
 
 					{/* Google button */}
-					<GoogleButton>
+					<GoogleButton onClick={() => signIn()}>
 						<Image
 							src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg'
 							alt=''
@@ -54,3 +56,22 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	// get the user session
+	const session = await getSession({ req });
+
+	// If the user is already authenticated, redirect it to the home page
+	if (session?.token.email) {
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
+};
