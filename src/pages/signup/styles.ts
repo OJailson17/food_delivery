@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginMainContainer = styled.main`
+export const SignUpMainContainer = styled.main`
 	width: 100%;
 	height: 100vh;
 
@@ -9,7 +9,7 @@ export const LoginMainContainer = styled.main`
 	justify-content: center;
 `;
 
-export const LoginContentContainer = styled.div`
+export const SignUpContentContainer = styled.div`
 	width: 80%;
 	height: 90%;
 
@@ -18,10 +18,10 @@ export const LoginContentContainer = styled.div`
 	justify-content: space-between;
 `;
 
-export const LoginFormContainer = styled.div`
+export const SignUpFormContainer = styled.div`
 	width: 100%;
 	max-width: 29.75rem;
-	padding: 4rem;
+	padding: 2rem;
 	text-align: center;
 
 	background-color: ${props => props.theme.blue800};
@@ -48,7 +48,7 @@ export const LoginFormContainer = styled.div`
 	}
 `;
 
-export const LoginForm = styled.form`
+export const SignUpForm = styled.form`
 	margin-top: 2rem;
 	display: flex;
 	flex-direction: column;

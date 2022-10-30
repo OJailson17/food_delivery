@@ -1,25 +1,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import logoImg from '../../assets/food_delivery_logo.svg';
 import { GoogleButton } from '../../styles/common';
 import {
-	LoginContentContainer,
-	LoginForm,
-	LoginFormContainer,
-	LoginMainContainer,
+	SignUpContentContainer,
+	SignUpForm,
+	SignUpFormContainer,
+	SignUpMainContainer,
 } from './styles';
 
-const Login = () => {
+import logoImg from '../../assets/food_delivery_logo.svg';
+
+const SignUp = () => {
 	return (
-		<LoginMainContainer>
-			<LoginContentContainer>
+		<SignUpMainContainer>
+			<SignUpContentContainer>
 				<Image src={logoImg} alt='' priority />
 
-				<LoginFormContainer>
-					<h2>Faça login</h2>
+				<SignUpFormContainer>
+					<h2>Crie sua conta</h2>
 
-					<LoginForm>
+					<SignUpForm>
+						<div>
+							<label htmlFor='name'>Nome</label>
+							<input type='name' placeholder='Exemplo: John Doe' />
+						</div>
+
 						<div>
 							<label htmlFor='email'>Email</label>
 							<input type='email' placeholder='Exemplo: john.doe@exemplo.com' />
@@ -30,8 +36,8 @@ const Login = () => {
 							<input type='password' placeholder='No mínimo 6 caracteres' />
 						</div>
 
-						<button type='submit'>Entrar</button>
-					</LoginForm>
+						<button type='submit'>Criar conta</button>
+					</SignUpForm>
 
 					<span>ou</span>
 
@@ -43,14 +49,14 @@ const Login = () => {
 							width='20'
 							height='20'
 						/>
-						Entrar com o Google
+						Cadastrar com o Google
 					</GoogleButton>
 
-					<Link href='/signup'>Criar uma conta</Link>
-				</LoginFormContainer>
-			</LoginContentContainer>
-		</LoginMainContainer>
+					<Link href='/login'>Já tenho uma conta</Link>
+				</SignUpFormContainer>
+			</SignUpContentContainer>
+		</SignUpMainContainer>
 	);
 };
 
-export default Login;
+export default SignUp;
