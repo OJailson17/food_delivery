@@ -6,6 +6,7 @@ export const defaultTheme = {
 	blue: '#1E6F9F',
 	blue800: '#001119',
 	blue700: '#091E26',
+	blue600: '#0D1D25',
 	blue100: '#82F3FF',
 
 	placeholder: '#7C7C8A',
