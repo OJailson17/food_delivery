@@ -1,3 +1,16 @@
+import { GetServerSideProps } from 'next';
+import { Header } from '../components/Header';
+
 export default function Home() {
-	return <h1>Hello World</h1>;
+	return (
+		<>
+			<Header />
+		</>
+	);
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	return {
+		props: {},
+	};
+};
