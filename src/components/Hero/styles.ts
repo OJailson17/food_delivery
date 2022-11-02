@@ -9,7 +9,7 @@ export const HeroContainer = styled.section`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	position: absolute;
+	position: relative;
 `;
 
 export const HeroContent = styled.div`
