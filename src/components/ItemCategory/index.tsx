@@ -10,6 +10,11 @@ export const ItemCategory = () => {
 				<Item />
 				<Item />
 				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
 			</CategoryContent>
 		</ItemCategoryContainer>
 	);

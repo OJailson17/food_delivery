@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ItemContainer = styled.div`
-	/* width: 100%; */
 	width: 18.75rem;
+	min-width: 18.75rem;
 	padding: 3.5rem 0 2.5rem;
 
 	display: flex;
@@ -19,6 +19,7 @@ export const ItemContainer = styled.div`
 		font-size: 1.5rem;
 		font-weight: bold;
 		margin-top: 1rem;
+		/* white-space: normal; */
 	}
 
 	.item-description {
@@ -26,6 +27,7 @@ export const ItemContainer = styled.div`
 		margin-top: 1rem;
 		font-size: 0.875rem;
 		font-weight: 400;
+		white-space: normal;
 
 		color: ${props => props.theme.span};
 	}
