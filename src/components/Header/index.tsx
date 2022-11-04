@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Receipt, MagnifyingGlass, SignOut } from 'phosphor-react';
+import { signOut } from 'next-auth/react';
 
 import logoImg from '../../assets/food_delivery_logo.svg';
 import {
@@ -25,7 +26,7 @@ export const Header = () => {
 					Meu pedido (0)
 				</CartContainer>
 
-				<SignOutButton title='Sair'>
+				<SignOutButton title='Sair' onClick={() => signOut()}>
 					<SignOut size={32} />
 				</SignOutButton>
 			</HeaderNavContent>
