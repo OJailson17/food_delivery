@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -22,6 +23,19 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	// get the user session
+	const session = await getSession({ req });
+
+	// If the user is already authenticated, redirect it to the login page
+	if (!session) {
+		return {
+			redirect: {
+				destination: '/login',
+				permanent: false,
+			},
+		};
+	}
+
 	return {
 		props: {},
 	};
