@@ -12,8 +12,36 @@ import {
 
 import logoImg from '../../assets/food_delivery_logo.svg';
 import { GetServerSideProps } from 'next';
+import { useForm } from 'react-hook-form';
+import { api } from '../../lib/axios';
+import { useRouter } from 'next/router';
 
 const SignUp = () => {
+	const { register, handleSubmit } = useForm();
+
+	const router = useRouter();
+
+	const handleSignUp = async data => {
+		console.log(data);
+
+		try {
+			const response = await api.post('/api/auth/signup', data);
+			console.log(response.data);
+
+			// TODO create a toast to show the error
+			if (response.data?.error?.description === 'User already exists') {
+				alert('Usuário já existe');
+				router.push('/login');
+			}
+
+			if (response.data.success) {
+				router.push('/');
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<SignUpMainContainer>
 			<SignUpContentContainer>
@@ -22,20 +50,32 @@ const SignUp = () => {
 				<SignUpFormContainer>
 					<h2>Crie sua conta</h2>
 
-					<SignUpForm>
+					<SignUpForm onSubmit={handleSubmit(handleSignUp)}>
 						<div>
 							<label htmlFor='name'>Nome</label>
-							<input type='name' placeholder='Exemplo: John Doe' />
+							<input
+								type='name'
+								placeholder='Exemplo: John Doe'
+								{...register('name')}
+							/>
 						</div>
 
 						<div>
 							<label htmlFor='email'>Email</label>
-							<input type='email' placeholder='Exemplo: john.doe@exemplo.com' />
+							<input
+								type='email'
+								placeholder='Exemplo: john.doe@exemplo.com'
+								{...register('email')}
+							/>
 						</div>
 
 						<div>
 							<label htmlFor='password'>Senha</label>
-							<input type='password' placeholder='No mínimo 6 caracteres' />
+							<input
+								type='password'
+								placeholder='No mínimo 6 caracteres'
+								{...register('password')}
+							/>
 						</div>
 
 						<button type='submit'>Criar conta</button>

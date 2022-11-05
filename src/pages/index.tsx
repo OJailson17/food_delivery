@@ -22,18 +22,30 @@ export default function Home() {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	// get the user session
 	const session = await getSession({ req });
 
+	let userCookies;
+
+	if (req.cookies.token) {
+		userCookies = JSON.parse(String(req.cookies.token));
+	}
+
+	console.log(session);
+
+	console.log(req.cookies);
+
 	// If the user is already authenticated, redirect it to the login page
 	if (!session) {
-		return {
-			redirect: {
-				destination: '/login',
-				permanent: false,
-			},
-		};
+		if (!userCookies) {
+			return {
+				redirect: {
+					destination: '/login',
+					permanent: false,
+				},
+			};
+		}
 	}
 
 	return {
