@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import heroImg from '../../assets/hero-image.svg';
+import heroImg from '../../assets/hero-image.png';
 import { HeroContainer, HeroContent } from './styles';
 
 export const Hero = () => {

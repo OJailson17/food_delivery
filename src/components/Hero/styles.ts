@@ -26,8 +26,8 @@ export const HeroContent = styled.div`
 
 	img {
 		position: relative;
-		bottom: 3.9rem;
-		left: -4.3rem;
+		bottom: 4.6rem;
+		left: -3.5rem;
 	}
 
 	div {
