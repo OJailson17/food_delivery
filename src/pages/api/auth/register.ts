@@ -47,7 +47,7 @@ const SignUp = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		// Calling our pure function using the `res` object, it will add the `set-cookie` header
 		// Add the `set-cookie` header on the main domain and expire after 30 days
-		setCookie(res, 'token', cookieString, {
+		setCookie(res, 'user', cookieString, {
 			path: '/',
 			maxAge: 2592000,
 		});
