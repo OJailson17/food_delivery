@@ -3,6 +3,7 @@ import { query as q } from 'faunadb';
 import GoogleProvider from 'next-auth/providers/google';
 
 import { fauna } from '../../../lib/faunadb';
+import { randomUUID } from 'crypto';
 
 export const authOptions = {
 	// Configure one or more authentication providers
@@ -18,10 +19,10 @@ export const authOptions = {
 		},
 
 		async signIn({ user, account, profile }) {
-			const { email, name, id, image } = user;
+			const { email, name, image } = user;
 
 			const userData = {
-				id,
+				id: randomUUID(),
 				name,
 				email,
 				image,
