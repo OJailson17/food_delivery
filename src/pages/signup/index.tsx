@@ -16,16 +16,22 @@ import { useForm } from 'react-hook-form';
 import { api } from '../../lib/axios';
 import { useRouter } from 'next/router';
 
+interface IFormReturn {
+	name: string;
+	email: string;
+	password: string;
+}
+
 const SignUp = () => {
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit } = useForm<IFormReturn>();
 
 	const router = useRouter();
 
-	const handleSignUp = async data => {
+	const handleSignUp = async (data: IFormReturn) => {
 		console.log(data);
 
 		try {
-			const response = await api.post('/api/auth/signup', data);
+			const response = await api.post('/api/auth/register', data);
 			console.log(response.data);
 
 			// TODO create a toast to show the error
