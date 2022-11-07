@@ -14,7 +14,7 @@ import {
 
 export const Header = () => {
 	const handleSignOut = () => {
-		deleteCookie('token');
+		deleteCookie('user');
 		signOut();
 	};
 

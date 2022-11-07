@@ -28,8 +28,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
 	let userCookies;
 
-	if (req.cookies.token) {
-		userCookies = JSON.parse(String(req.cookies.token));
+	if (req.cookies.user) {
+		userCookies = JSON.parse(String(req.cookies.user));
 	}
 
 	console.log(session);
