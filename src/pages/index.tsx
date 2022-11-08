@@ -13,8 +13,9 @@ export default function Home() {
 			<Hero />
 
 			<MainContentContainer>
-				<ItemCategory />
-				<ItemCategory />
+				<ItemCategory category='Pratos Principais' />
+				<ItemCategory category='Sobremesas' />
+				<ItemCategory category='Bebidas' />
 			</MainContentContainer>
 
 			<Footer />
@@ -32,9 +33,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 		userCookies = JSON.parse(String(req.cookies.user));
 	}
 
-	console.log(session);
+	// console.log(session);
 
-	console.log(req.cookies);
+	// console.log(req.cookies);
 
 	// If the user is already authenticated, redirect it to the login page
 	if (!session) {
