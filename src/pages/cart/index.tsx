@@ -1,7 +1,16 @@
 import React from 'react';
 import { CartItem } from '../../components/CartItem';
 import { Header } from '../../components/Header';
-import { CartItems, CartItemsContainer, CartMainContainer } from './styles';
+import {
+	AddressContainer,
+	CartItems,
+	CartItemsContainer,
+	CartMainContainer,
+	DoubleInput,
+	FinishOrderButton,
+	FormAddressContainer,
+	FormInput,
+} from './styles';
 
 const Cart = () => {
 	return (
@@ -22,40 +31,46 @@ const Cart = () => {
 				</CartItemsContainer>
 
 				{/* TODO Finish form styling */}
-				<div>
+				<AddressContainer>
 					<h2>Endereço</h2>
 
 					{/* Address form */}
-					<form>
-						<div>
+					<FormAddressContainer>
+						<FormInput>
+							<label htmlFor='name'>Nome</label>
+							<input type='text' id='name' placeholder='Ex: João da SIlva' />
+						</FormInput>
+						<FormInput>
 							<label htmlFor='street'>Rua</label>
 							<input type='text' id='street' placeholder='Ex: Av. Paulista' />
-						</div>
+						</FormInput>
 
-						<div>
-							<div>
+						<DoubleInput>
+							<FormInput>
 								<label htmlFor='house-number'>Número</label>
 								<input type='number' id='house-number' placeholder='Ex: 106' />
-							</div>
+							</FormInput>
 
-							<div>
+							<FormInput>
 								<label htmlFor='complement'>Complemento (opcional)</label>
 								<input
 									type='text'
 									id='complement'
 									placeholder='Ex: Casa, Apartamento'
 								/>
-							</div>
-						</div>
+							</FormInput>
+						</DoubleInput>
 
-						<div>
+						<FormInput>
 							<label htmlFor='neighbor'>Bairro</label>
 							<input type='text' id='neighbor' placeholder='Ex: Centro' />
-						</div>
+						</FormInput>
 
-						<button type='submit'>Finalizar pedidio</button>
-					</form>
-				</div>
+						<FinishOrderButton type='submit'>
+							Finalizar pedidio
+						</FinishOrderButton>
+					</FormAddressContainer>
+				</AddressContainer>
 			</CartMainContainer>
 		</>
 	);
