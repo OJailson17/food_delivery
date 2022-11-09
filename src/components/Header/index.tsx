@@ -11,8 +11,20 @@ import {
 	SearchInputForm,
 	SignOutButton,
 } from './styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+
+interface CartItem {
+	id: string;
+	name: string;
+	price: number;
+	quantity: number;
+}
 
 export const Header = () => {
+	// Items from cart
+	const cart = useSelector<RootState>(state => state.cart.value) as CartItem[];
+
 	const handleSignOut = () => {
 		deleteCookie('user');
 		signOut();
@@ -29,7 +41,7 @@ export const Header = () => {
 
 				<CartContainer href='#'>
 					<Receipt size={32} />
-					Meu pedido (0)
+					Meu pedido ({cart.length})
 				</CartContainer>
 
 				<SignOutButton title='Sair' onClick={handleSignOut}>

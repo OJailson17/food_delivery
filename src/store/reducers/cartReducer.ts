@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface CartItem {
 	id: string;
-	name: string;
+	title: string;
 	price: number;
 	quantity: number;
 }
@@ -15,26 +15,45 @@ const cartReducer = createSlice({
 		value: initialValue,
 	},
 	reducers: {
+		// Add item to cart
 		addItem: (state, action) => {
-			state.value = [...state.value, action.payload];
-			const localData = localStorage.getItem('@food_delivery:cart');
-			const parsedData: CartItem[] = JSON.parse(localData || '{}');
+			const itemExist = state.value.find(item => item.id === action.payload.id);
 
-			//TODO FIX: Save data correctly in local storage
-			if (localData) {
-				const joinData = parsedData.concat(state.value);
-				localStorage.setItem('@food_delivery:cart', JSON.stringify(joinData));
-				console.log(parsedData);
+			// If item exist on the list, increase quantity by 1
+			if (itemExist) {
+				const updatedItems = state.value.map(item => {
+					if (item.id === action.payload.id) {
+						return {
+							...item,
+							quantity: (item.quantity += 1),
+						};
+					}
+
+					return item;
+				});
+
+				// Save the updated list on the state
+				state.value = updatedItems;
 			} else {
-				localStorage.setItem(
-					'@food_delivery:cart',
-					JSON.stringify(state.value),
-				);
+				// If item does not exist on the list, add it
+				state.value = [...state.value, action.payload];
+			}
+
+			// Save list on local storage
+			localStorage.setItem('@food_delivery:cart', JSON.stringify(state.value));
+		},
+		// get items from local storage
+		getItems: state => {
+			const localItems = localStorage.getItem('@food_delivery:cart');
+
+			if (localItems) {
+				const parsedData = JSON.parse(localItems);
+				state.value = parsedData;
 			}
 		},
 	},
 });
 
-export const { addItem } = cartReducer.actions;
+export const { addItem, getItems } = cartReducer.actions;
 
 export default cartReducer.reducer;

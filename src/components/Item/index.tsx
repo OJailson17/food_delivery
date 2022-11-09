@@ -3,10 +3,11 @@ import { IncludeButton, ItemActions, ItemContainer, ItemImage } from './styles';
 
 import torradaImg from '../../assets/torrada-de-parma.png';
 import { Minus, Plus } from 'phosphor-react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
 import { addItem } from '../../store/reducers/cartReducer';
 import { itemsData } from '../../utils/itemsData';
+import { useEffect, useState } from 'react';
 
 interface Items {
 	id: number;
@@ -17,13 +18,25 @@ interface Items {
 	category: string;
 }
 
+interface CartItems {
+	id: number;
+	quantity: number;
+}
+
 interface ItemProps {
 	items: Items;
 }
 
 export const Item = ({ items }: ItemProps) => {
+	const [itemQtd, setItemQtd] = useState(0);
+
+	// Items inserted in cart
+	const cart = useSelector<RootState>(state => state.cart.value) as CartItems[];
+
+	// Function to change cart value
 	const dispatch = useDispatch<AppDispatch>();
 
+	// Add an item to cart
 	const handleAddItemToCart = () => {
 		dispatch(
 			addItem({
@@ -34,6 +47,20 @@ export const Item = ({ items }: ItemProps) => {
 			}),
 		);
 	};
+
+	// Get item quantity and add in state
+	const getItemQtd = () => {
+		for (const cartItem of cart) {
+			if (cartItem.id === items.id) {
+				setItemQtd(cartItem.quantity);
+			}
+		}
+	};
+
+	// Every time cart change value, get item quantity from cart
+	useEffect(() => {
+		getItemQtd();
+	}, [cart]);
 
 	return (
 		<ItemContainer>
@@ -55,7 +82,7 @@ export const Item = ({ items }: ItemProps) => {
 					<button>
 						<Minus size={24} />
 					</button>
-					<div>01</div>
+					<div>{itemQtd}</div>
 					<button>
 						<Plus size={24} />
 					</button>
