@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../../components/CartItem';
 import { Header } from '../../components/Header';
+import { AppDispatch, RootState } from '../../store';
+import { getItems } from '../../store/reducers/cartReducer';
 import {
 	AddressContainer,
 	CartItems,
@@ -12,7 +15,24 @@ import {
 	FormInput,
 } from './styles';
 
+interface Item {
+	id: string;
+	title: string;
+	price: number;
+	quantity: number;
+	image: string;
+}
+
 const Cart = () => {
+	const cart = useSelector<RootState>(state => state.cart.value) as Item[];
+
+	const dispatch = useDispatch<AppDispatch>();
+
+	// Get all local storage items and set in the state
+	useEffect(() => {
+		dispatch(getItems());
+	}, []);
+
 	return (
 		<>
 			<Header />
@@ -23,8 +43,9 @@ const Cart = () => {
 
 					{/* Cart items */}
 					<CartItems>
-						<CartItem />
-						<CartItem />
+						{cart.map(item => (
+							<CartItem key={item.id} item={item} />
+						))}
 					</CartItems>
 
 					<p className='total-price'>Total: R$ 103,88</p>

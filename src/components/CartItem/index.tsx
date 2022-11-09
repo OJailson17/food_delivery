@@ -4,15 +4,29 @@ import React from 'react';
 import foodImg from '../../../public/assets/salada-ravanello.png';
 import { CartItemContainer } from './styles';
 
-export const CartItem = () => {
+interface Item {
+	id: string;
+	title: string;
+	price: number;
+	quantity: number;
+	image: string;
+}
+
+interface CartItemProps {
+	item: Item;
+}
+
+export const CartItem = ({ item }: CartItemProps) => {
 	return (
 		<CartItemContainer>
-			<Image src={foodImg} alt='' />
+			<Image src={item.image} alt='' width={100} height={100} />
 
 			<div className='item-info-container'>
 				<div>
-					<p>1 x Salada Ravanelho</p>
-					<span>R$ 25,97</span>
+					<p>
+						{item.quantity} x {item.title}
+					</p>
+					<span>R$ {item.price}</span>
 				</div>
 
 				<button>Excluir</button>
