@@ -1,5 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store';
+import { removeItem } from '../../store/reducers/cartReducer';
 
 import { formatPrice } from '../../utils/formatPrice';
 import { CartItemContainer } from './styles';
@@ -17,6 +20,16 @@ interface CartItemProps {
 }
 
 export const CartItem = ({ item }: CartItemProps) => {
+	const dispatch = useDispatch<AppDispatch>();
+
+	const handleRemoveItem = () => {
+		dispatch(
+			removeItem({
+				id: item.id,
+			}),
+		);
+	};
+
 	return (
 		<CartItemContainer>
 			<Image src={item.image} alt='' width={100} height={100} />
@@ -29,7 +42,7 @@ export const CartItem = ({ item }: CartItemProps) => {
 					<span>{formatPrice(item.price)}</span>
 				</div>
 
-				<button>Excluir</button>
+				<button onClick={handleRemoveItem}>Excluir</button>
 			</div>
 		</CartItemContainer>
 	);
