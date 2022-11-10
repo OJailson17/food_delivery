@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from '../../store';
 import { addItem } from '../../store/reducers/cartReducer';
 import { itemsData } from '../../utils/itemsData';
 import { useEffect, useState } from 'react';
+import { formatPrice } from '../../utils/formatPrice';
 
 interface Items {
 	id: number;
@@ -75,7 +76,7 @@ export const Item = ({ items }: ItemProps) => {
 			<span className='item-description'>{items.description}</span>
 
 			{/* price */}
-			<p className='item-price'>R$ {items.price}</p>
+			<p className='item-price'>{formatPrice(items.price)}</p>
 
 			{/* actions */}
 			<ItemActions>

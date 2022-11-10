@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import foodImg from '../../../public/assets/salada-ravanello.png';
+import { formatPrice } from '../../utils/formatPrice';
 import { CartItemContainer } from './styles';
 
 interface Item {
@@ -26,7 +26,7 @@ export const CartItem = ({ item }: CartItemProps) => {
 					<p>
 						{item.quantity} x {item.title}
 					</p>
-					<span>R$ {item.price}</span>
+					<span>{formatPrice(item.price)}</span>
 				</div>
 
 				<button>Excluir</button>
