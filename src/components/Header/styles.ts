@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
@@ -56,7 +57,7 @@ export const SearchInputForm = styled.form`
 	}
 `;
 
-export const CartContainer = styled.a`
+export const CartContainer = styled(Link)`
 	width: 100%;
 	max-width: 13.6rem;
 	height: 3rem;

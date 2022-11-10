@@ -13,6 +13,7 @@ import {
 } from './styles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import Link from 'next/link';
 
 interface CartItem {
 	id: string;
@@ -32,14 +33,16 @@ export const Header = () => {
 
 	return (
 		<HeaderContainer>
-			<Image src={logoImg} alt='' priority />
+			<Link href={'/'}>
+				<Image src={logoImg} alt='' priority />
+			</Link>
 			<HeaderNavContent>
 				<SearchInputForm>
 					<MagnifyingGlass size={24} />
 					<input type='text' placeholder='Busque pelas opções de prato' />
 				</SearchInputForm>
 
-				<CartContainer href='#'>
+				<CartContainer href='/cart'>
 					<Receipt size={32} />
 					Meu pedido ({cart.length})
 				</CartContainer>
