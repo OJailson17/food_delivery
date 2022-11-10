@@ -41,9 +41,10 @@ export const Item = ({ items }: ItemProps) => {
 		dispatch(
 			addItem({
 				id: items.id,
-				name: items.title,
+				title: items.title,
 				price: items.price,
 				quantity: 1,
+				image: items.image,
 			}),
 		);
 	};
