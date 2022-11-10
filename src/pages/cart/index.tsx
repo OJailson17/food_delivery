@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../../components/CartItem';
 import { Header } from '../../components/Header';
 import { AppDispatch, RootState } from '../../store';
 import { getItems } from '../../store/reducers/cartReducer';
+import { formatPrice } from '../../utils/formatPrice';
 import {
 	AddressContainer,
 	CartItems,
@@ -28,6 +29,15 @@ const Cart = () => {
 
 	const dispatch = useDispatch<AppDispatch>();
 
+	// Calculate the total price of the items in the cart
+	const totalPrice = useCallback(() => {
+		return cart.reduce((total, item) => {
+			const subTotal = item.quantity * item.price;
+			total = total + subTotal;
+			return total;
+		}, 0);
+	}, [cart]);
+
 	// Get all local storage items and set in the state
 	useEffect(() => {
 		dispatch(getItems());
@@ -48,7 +58,7 @@ const Cart = () => {
 						))}
 					</CartItems>
 
-					<p className='total-price'>Total: R$ 103,88</p>
+					<p className='total-price'>Total: {formatPrice(totalPrice())}</p>
 				</CartItemsContainer>
 
 				{/* TODO Finish form styling */}
