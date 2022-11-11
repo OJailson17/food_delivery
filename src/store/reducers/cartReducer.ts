@@ -43,6 +43,7 @@ const cartReducer = createSlice({
 			// Save list on local storage
 			localStorage.setItem('@food_delivery:cart', JSON.stringify(state.value));
 		},
+
 		// Decrease item quantity
 		removeItemByOne: (state, action) => {
 			const itemExist = state.value.find(item => item.id === action.payload.id);
@@ -60,15 +61,21 @@ const cartReducer = createSlice({
 					return item;
 				});
 
-				// Save the updated list on the state
-				state.value = updatedItems;
-			} else {
-				// If item does not exist on the list, add it
-				state.value = [...state.value, action.payload];
-			}
+				// Filter items and select item with quantity grater than 1
+				const filterRemovedItems = updatedItems.filter(
+					item => item.quantity > 0,
+				);
 
-			// Save list on local storage
-			localStorage.setItem('@food_delivery:cart', JSON.stringify(state.value));
+				// Save the updated list on the state
+				state.value = filterRemovedItems;
+				// Save list on local storage
+				localStorage.setItem(
+					'@food_delivery:cart',
+					JSON.stringify(state.value),
+				);
+			} else {
+				state.value = [...state.value];
+			}
 		},
 
 		// Remove the item from cart
@@ -83,6 +90,7 @@ const cartReducer = createSlice({
 			// Save filtered list on local storage
 			localStorage.setItem('@food_delivery:cart', JSON.stringify(state.value));
 		},
+
 		// get items from local storage
 		getItems: state => {
 			const localItems = localStorage.getItem('@food_delivery:cart');

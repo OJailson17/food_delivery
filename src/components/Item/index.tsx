@@ -1,12 +1,10 @@
 import Image from 'next/image';
 import { IncludeButton, ItemActions, ItemContainer, ItemImage } from './styles';
 
-import torradaImg from '../../assets/torrada-de-parma.png';
 import { Minus, Plus } from 'phosphor-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import { addItem } from '../../store/reducers/cartReducer';
-import { itemsData } from '../../utils/itemsData';
+import { addItem, removeItemByOne } from '../../store/reducers/cartReducer';
 import { useEffect, useState } from 'react';
 import { formatPrice } from '../../utils/formatPrice';
 
@@ -50,13 +48,27 @@ export const Item = ({ items }: ItemProps) => {
 		);
 	};
 
+	/*
+	Decrease item quantity by 1
+	 */
+	const handleRemoveItem = () => {
+		dispatch(
+			removeItemByOne({
+				id: items.id,
+			}),
+		);
+	};
+
 	// Get item quantity and add in state
 	const getItemQtd = () => {
 		for (const cartItem of cart) {
 			if (cartItem.id === items.id) {
 				setItemQtd(cartItem.quantity);
+				return;
 			}
 		}
+		// If there is nothing in array, set item quantity to 0
+		setItemQtd(0);
 	};
 
 	// Every time cart change value, get item quantity from cart
@@ -81,10 +93,10 @@ export const Item = ({ items }: ItemProps) => {
 			{/* actions */}
 			<ItemActions>
 				<div>
-					<button>
+					<button onClick={handleRemoveItem}>
 						<Minus size={24} />
 					</button>
-					<div>{itemQtd}</div>
+					<div>{itemQtd || 0}</div>
 					<button>
 						<Plus size={24} />
 					</button>
