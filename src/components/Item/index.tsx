@@ -41,6 +41,7 @@ export const Item = ({ items }: ItemProps) => {
 			addItem({
 				id: items.id,
 				title: items.title,
+				description: items.description,
 				price: items.price,
 				quantity: 1,
 				image: items.image,

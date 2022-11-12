@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 interface CartItem {
 	id: string;
 	title: string;
+	description: string;
 	price: number;
 	quantity: number;
 	image: string;
