@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../../components/CartItem';
 import { Header } from '../../components/Header';
+import { api } from '../../lib/axios';
+import { getStripe } from '../../lib/stripe-js';
 import { AppDispatch, RootState } from '../../store';
 import { getItems } from '../../store/reducers/cartReducer';
 import { formatPrice } from '../../utils/formatPrice';
@@ -19,6 +21,7 @@ import {
 interface Item {
 	id: string;
 	title: string;
+	description: string;
 	price: number;
 	quantity: number;
 	image: string;
@@ -37,6 +40,30 @@ const Cart = () => {
 			return total;
 		}, 0);
 	}, [cart]);
+
+	const handleFinishOrder = async (e: FormEvent) => {
+		e.preventDefault();
+
+		try {
+			const stripe = await getStripe();
+
+			const response = await api.post('/api/checkout', {
+				items: cart,
+			});
+
+			const { sessionId } = response.data;
+
+			if (sessionId) {
+				await stripe?.redirectToCheckout({
+					sessionId,
+				});
+			}
+
+			console.log(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	// Get all local storage items and set in the state
 	useEffect(() => {
@@ -66,7 +93,7 @@ const Cart = () => {
 					<h2>Endereço</h2>
 
 					{/* Address form */}
-					<FormAddressContainer>
+					<FormAddressContainer onSubmit={handleFinishOrder}>
 						<FormInput>
 							<label htmlFor='name'>Nome</label>
 							<input type='text' id='name' placeholder='Ex: João da SIlva' />
