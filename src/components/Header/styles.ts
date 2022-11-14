@@ -79,7 +79,7 @@ export const CartContainer = styled(Link)`
 	}
 `;
 
-export const SignOutButton = styled.button`
+export const SignButton = styled.button`
 	width: max-content;
 	height: max-content;
 

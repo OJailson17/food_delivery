@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Receipt, MagnifyingGlass, SignOut } from 'phosphor-react';
+import { Receipt, MagnifyingGlass, SignOut, SignIn } from 'phosphor-react';
 import { signOut } from 'next-auth/react';
 import { deleteCookie } from 'cookies-next';
 
@@ -9,11 +9,12 @@ import {
 	HeaderContainer,
 	HeaderNavContent,
 	SearchInputForm,
-	SignOutButton,
+	SignButton,
 } from './styles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface CartItem {
 	id: string;
@@ -22,13 +23,23 @@ interface CartItem {
 	quantity: number;
 }
 
-export const Header = () => {
+interface HeaderProps {
+	isUserLogged?: boolean;
+}
+
+export const Header = ({ isUserLogged }: HeaderProps) => {
 	// Items from cart
 	const cart = useSelector<RootState>(state => state.cart.value) as CartItem[];
+
+	const router = useRouter();
 
 	const handleSignOut = () => {
 		deleteCookie('user');
 		signOut();
+	};
+
+	const handleSignIn = () => {
+		router.push('/login');
 	};
 
 	return (
@@ -47,9 +58,12 @@ export const Header = () => {
 					Meu pedido ({cart.length})
 				</CartContainer>
 
-				<SignOutButton title='Sair' onClick={handleSignOut}>
-					<SignOut size={32} />
-				</SignOutButton>
+				<SignButton
+					title={isUserLogged ? 'Sair' : 'Entrar'}
+					onClick={isUserLogged ? handleSignOut : handleSignIn}
+				>
+					{isUserLogged ? <SignOut size={32} /> : <SignIn size={32} />}
+				</SignButton>
 			</HeaderNavContent>
 		</HeaderContainer>
 	);
