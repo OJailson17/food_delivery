@@ -20,23 +20,21 @@ const createCheckoutSession = async (
 ) => {
 	const { items } = req.body as IRequest;
 
-	const formattedItems = items.map(item => {
-		return {
-			price_data: {
-				currency: 'BRL',
-				product_data: {
-					name: item.title,
-					description: item.description,
-				},
-				unit_amount: item.price * 100,
-			},
-			quantity: item.quantity,
-		};
-	});
-
-	console.log(formattedItems);
-
 	if (req.method === 'POST') {
+		const formattedItems = items.map(item => {
+			return {
+				price_data: {
+					currency: 'BRL',
+					product_data: {
+						name: item.title,
+						description: item.description,
+					},
+					unit_amount: item.price * 100,
+				},
+				quantity: item.quantity,
+			};
+		});
+
 		try {
 			const session = await stripe.checkout.sessions.create({
 				success_url: 'http://localhost:3000/success',

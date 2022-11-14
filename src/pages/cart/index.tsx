@@ -1,3 +1,6 @@
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../../components/CartItem';
@@ -27,10 +30,16 @@ interface Item {
 	image: string;
 }
 
-const Cart = () => {
+interface CartServerProps {
+	isUserLogged: boolean;
+}
+
+const Cart = ({ isUserLogged }: CartServerProps) => {
 	const cart = useSelector<RootState>(state => state.cart.value) as Item[];
 
 	const dispatch = useDispatch<AppDispatch>();
+
+	const router = useRouter();
 
 	// Calculate the total price of the items in the cart
 	const totalPrice = useCallback(() => {
@@ -44,16 +53,25 @@ const Cart = () => {
 	const handleFinishOrder = async (e: FormEvent) => {
 		e.preventDefault();
 
+		// If user is not logged, redirect to login page
+		if (!isUserLogged) {
+			router.push('/login');
+			return;
+		}
+
 		try {
 			const stripe = await getStripe();
 
+			// Make request to checkout route passing the cart items
 			const response = await api.post('/api/checkout', {
 				items: cart,
 			});
 
 			const { sessionId } = response.data;
 
+			// If the session id is return in the response, redirect to checkout page
 			if (sessionId) {
+				localStorage.removeItem('@food_delivery:cart');
 				await stripe?.redirectToCheckout({
 					sessionId,
 				});
@@ -72,7 +90,7 @@ const Cart = () => {
 
 	return (
 		<>
-			<Header />
+			<Header isUserLogged={isUserLogged} />
 
 			<CartMainContainer>
 				<CartItemsContainer>
@@ -135,3 +153,26 @@ const Cart = () => {
 };
 
 export default Cart;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	// get the user session
+	const session = await getSession({ req });
+
+	let userCookies;
+
+	if (req.cookies.user) {
+		userCookies = JSON.parse(String(req.cookies.user));
+	}
+
+	let isUserLogged = false;
+
+	if (session || userCookies) {
+		isUserLogged = true;
+	}
+
+	return {
+		props: {
+			isUserLogged,
+		},
+	};
+};
