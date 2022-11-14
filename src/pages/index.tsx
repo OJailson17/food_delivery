@@ -10,7 +10,11 @@ import { AppDispatch } from '../store';
 import { getItems } from '../store/reducers/cartReducer';
 import { MainContentContainer } from './styles';
 
-export default function Home() {
+interface HomeServerProps {
+	isUserLogged: boolean;
+}
+
+export default function Home({ isUserLogged }: HomeServerProps) {
 	const dispatch = useDispatch<AppDispatch>();
 
 	// Get all local storage items and set in the state
@@ -20,7 +24,7 @@ export default function Home() {
 
 	return (
 		<>
-			<Header />
+			<Header isUserLogged={isUserLogged} />
 			<Hero />
 
 			<MainContentContainer>
@@ -44,23 +48,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 		userCookies = JSON.parse(String(req.cookies.user));
 	}
 
-	// console.log(session);
+	let isUserLogged = false;
 
-	// console.log(req.cookies);
-
-	// If the user is already authenticated, redirect it to the login page
-	if (!session) {
-		if (!userCookies) {
-			return {
-				redirect: {
-					destination: '/login',
-					permanent: false,
-				},
-			};
-		}
+	if (session || userCookies) {
+		isUserLogged = true;
 	}
 
 	return {
-		props: {},
+		props: {
+			isUserLogged,
+		},
 	};
 };
