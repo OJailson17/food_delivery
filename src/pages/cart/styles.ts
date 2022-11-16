@@ -133,4 +133,9 @@ export const FinishOrderButton = styled.button`
 	&:hover {
 		filter: brightness(90%);
 	}
+
+	&:disabled {
+		filter: brightness(50%);
+		cursor: not-allowed;
+	}
 `;

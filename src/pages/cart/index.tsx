@@ -60,7 +60,10 @@ const schema = yup.object({
 		.min(3, 'No mínimo 3 caracteres')
 		.max(255)
 		.trim(),
-	'house-number': yup.number().required('Campo obrigatório'),
+	'house-number': yup
+		.number()
+		.required('Campo obrigatório')
+		.integer('O número precisa ser inteiro'),
 	complement: yup.string(),
 	neighbor: yup
 		.string()
@@ -217,7 +220,10 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 							<span>{errors.neighbor?.message}</span>
 						</FormInput>
 
-						<FinishOrderButton type='submit'>
+						<FinishOrderButton
+							type='submit'
+							disabled={cart.length <= 0 ? true : false}
+						>
 							Finalizar pedidio
 						</FinishOrderButton>
 					</FormAddressContainer>
