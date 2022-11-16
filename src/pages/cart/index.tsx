@@ -1,7 +1,11 @@
+import React, { FormEvent, useCallback, useEffect } from 'react';
+import * as yup from 'yup';
+
+import { yupResolver } from '@hookform/resolvers/yup';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import React, { FormEvent, useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../../components/CartItem';
 import { Header } from '../../components/Header';
@@ -34,7 +38,54 @@ interface CartServerProps {
 	isUserLogged: boolean;
 }
 
+interface IFormInputs {
+	name: string;
+	street: string;
+	'house-number': number;
+	complement: string;
+	neighbor: string;
+}
+
+// Form schema validation
+const schema = yup.object({
+	name: yup
+		.string()
+		.required('Campo obrigatório')
+		.min(3, 'No mínimo 3 caracteres')
+		.max(255)
+		.trim(),
+	street: yup
+		.string()
+		.required('Campo obrigatório')
+		.min(3, 'No mínimo 3 caracteres')
+		.max(255)
+		.trim(),
+	'house-number': yup.number().required('Campo obrigatório'),
+	complement: yup.string(),
+	neighbor: yup
+		.string()
+		.required('Campo obrigatório')
+		.min(3, 'No mínimo 3 caracteres')
+		.max(255)
+		.trim(),
+});
+
 const Cart = ({ isUserLogged }: CartServerProps) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<IFormInputs>({
+		defaultValues: {
+			name: '',
+			street: '',
+			'house-number': 0,
+			complement: '',
+			neighbor: '',
+		},
+		resolver: yupResolver(schema),
+	});
+
 	const cart = useSelector<RootState>(state => state.cart.value) as Item[];
 
 	const dispatch = useDispatch<AppDispatch>();
@@ -50,9 +101,7 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 		}, 0);
 	}, [cart]);
 
-	const handleFinishOrder = async (e: FormEvent) => {
-		e.preventDefault();
-
+	const handleFinishOrder = async (data: IFormInputs) => {
 		// If user is not logged, redirect to login page
 		if (!isUserLogged) {
 			router.push('/login');
@@ -111,20 +160,38 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 					<h2>Endereço</h2>
 
 					{/* Address form */}
-					<FormAddressContainer onSubmit={handleFinishOrder}>
+					<FormAddressContainer onSubmit={handleSubmit(handleFinishOrder)}>
 						<FormInput>
 							<label htmlFor='name'>Nome</label>
-							<input type='text' id='name' placeholder='Ex: João da SIlva' />
+							<input
+								type='text'
+								id='name'
+								placeholder='Ex: João da SIlva'
+								{...register('name')}
+							/>
+							<span>{errors.name?.message}</span>
 						</FormInput>
 						<FormInput>
 							<label htmlFor='street'>Rua</label>
-							<input type='text' id='street' placeholder='Ex: Av. Paulista' />
+							<input
+								type='text'
+								id='street'
+								placeholder='Ex: Av. Paulista'
+								{...register('street')}
+							/>
+							<span>{errors.street?.message}</span>
 						</FormInput>
 
 						<DoubleInput>
 							<FormInput>
 								<label htmlFor='house-number'>Número</label>
-								<input type='number' id='house-number' placeholder='Ex: 106' />
+								<input
+									type='number'
+									id='house-number'
+									placeholder='Ex: 106'
+									{...register('house-number')}
+								/>
+								<span>{errors['house-number']?.message}</span>
 							</FormInput>
 
 							<FormInput>
@@ -133,13 +200,21 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 									type='text'
 									id='complement'
 									placeholder='Ex: Casa, Apartamento'
+									{...register('complement')}
 								/>
+								<span>{errors.complement?.message}</span>
 							</FormInput>
 						</DoubleInput>
 
 						<FormInput>
 							<label htmlFor='neighbor'>Bairro</label>
-							<input type='text' id='neighbor' placeholder='Ex: Centro' />
+							<input
+								type='text'
+								id='neighbor'
+								placeholder='Ex: Centro'
+								{...register('neighbor')}
+							/>
+							<span>{errors.neighbor?.message}</span>
 						</FormInput>
 
 						<FinishOrderButton type='submit'>

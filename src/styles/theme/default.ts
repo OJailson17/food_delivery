@@ -14,4 +14,6 @@ export const defaultTheme = {
 	text: '#E1E1E6',
 
 	'footer-text': '#FFFAF1',
+
+	danger: '#d11225',
 };

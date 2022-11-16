@@ -90,12 +90,17 @@ export const FormInput = styled.div`
 			-moz-appearance: textfield;
 		}
 	}
+
+	span {
+		color: ${props => props.theme.danger};
+		font-size: 0.875rem;
+	}
 `;
 
 export const DoubleInput = styled.div`
 	width: 90%;
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	gap: 1rem;
 
 	div {
