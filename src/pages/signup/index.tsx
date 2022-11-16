@@ -1,8 +1,15 @@
+import { getSession, signIn } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { getSession, signIn } from 'next-auth/react';
+
+import { api } from '../../lib/axios';
 
 import { GoogleButton } from '../../styles/common';
+
 import {
 	SignUpContentContainer,
 	SignUpForm,
@@ -11,10 +18,6 @@ import {
 } from './styles';
 
 import logoImg from '../../assets/food_delivery_logo.svg';
-import { GetServerSideProps } from 'next';
-import { useForm } from 'react-hook-form';
-import { api } from '../../lib/axios';
-import { useRouter } from 'next/router';
 
 interface IFormReturn {
 	name: string;

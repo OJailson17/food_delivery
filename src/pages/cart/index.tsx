@@ -1,12 +1,13 @@
-import React, { FormEvent, useCallback, useEffect } from 'react';
-import * as yup from 'yup';
-
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useCallback, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import * as yup from 'yup';
+
 import { CartItem } from '../../components/CartItem';
 import { Header } from '../../components/Header';
 import { api } from '../../lib/axios';
@@ -14,6 +15,7 @@ import { getStripe } from '../../lib/stripe-js';
 import { AppDispatch, RootState } from '../../store';
 import { getItems } from '../../store/reducers/cartReducer';
 import { formatPrice } from '../../utils/formatPrice';
+
 import {
 	AddressContainer,
 	CartItems,
@@ -119,6 +121,7 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 				items: cart,
 			});
 
+			// Get session id from response
 			const { sessionId } = response.data;
 
 			// If the session id is return in the response, redirect to checkout page

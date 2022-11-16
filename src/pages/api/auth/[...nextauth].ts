@@ -1,9 +1,10 @@
-import NextAuth from 'next-auth';
 import { query as q } from 'faunadb';
 import GoogleProvider from 'next-auth/providers/google';
+import { randomUUID } from 'crypto';
+
+import NextAuth from 'next-auth';
 
 import { fauna } from '../../../lib/faunadb';
-import { randomUUID } from 'crypto';
 
 export const authOptions = {
 	// Configure one or more authentication providers

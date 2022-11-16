@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { fauna } from '../../../lib/faunadb';
 import { query as q } from 'faunadb';
 import { randomUUID } from 'crypto';
+
+import { fauna } from '../../../lib/faunadb';
 import { setCookie } from '../../../utils/cookies';
 
 interface User {

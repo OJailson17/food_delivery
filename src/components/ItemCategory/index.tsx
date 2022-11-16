@@ -1,7 +1,6 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { itemsData } from '../../utils/itemsData';
 import { Item } from '../Item';
+import { itemsData } from '../../utils/itemsData';
+
 import { CategoryContent, ItemCategoryContainer } from './styles';
 
 interface ItemCategoryProps {

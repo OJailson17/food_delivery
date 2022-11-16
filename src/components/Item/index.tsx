@@ -1,13 +1,14 @@
-import Image from 'next/image';
-import { IncludeButton, ItemActions, ItemContainer, ItemImage } from './styles';
-
-import { Minus, Plus } from 'phosphor-react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Minus, Plus } from 'phosphor-react';
+
+import Image from 'next/image';
+
 import { AppDispatch, RootState } from '../../store';
 import { addItem, removeItemByOne } from '../../store/reducers/cartReducer';
-import { useEffect, useState } from 'react';
 import { formatPrice } from '../../utils/formatPrice';
 
+import { IncludeButton, ItemActions, ItemContainer, ItemImage } from './styles';
 interface Items {
 	id: number;
 	title: string;

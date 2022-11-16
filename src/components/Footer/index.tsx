@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import React from 'react';
+
+import { FooterContainer } from './styles';
 
 import logoImg from '../../assets/secondary-logo.svg';
-import { FooterContainer } from './styles';
 
 export const Footer = () => {
 	return (

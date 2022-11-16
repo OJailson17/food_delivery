@@ -1,19 +1,22 @@
 import { GetServerSideProps } from 'next';
 import { signIn, getSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
-import logoImg from '../../assets/food_delivery_logo.svg';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import { api } from '../../lib/axios';
 import { GoogleButton } from '../../styles/common';
+
 import {
 	LoginContentContainer,
 	LoginForm,
 	LoginFormContainer,
 	LoginMainContainer,
 } from './styles';
+
+import logoImg from '../../assets/food_delivery_logo.svg';
 
 interface IFormReturn {
 	email: string;

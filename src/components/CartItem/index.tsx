@@ -1,10 +1,11 @@
-import Image from 'next/image';
-import React from 'react';
 import { useDispatch } from 'react-redux';
+
+import Image from 'next/image';
+
 import { AppDispatch } from '../../store';
 import { removeItem } from '../../store/reducers/cartReducer';
-
 import { formatPrice } from '../../utils/formatPrice';
+
 import { CartItemContainer } from './styles';
 
 interface Item {

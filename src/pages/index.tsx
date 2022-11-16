@@ -1,13 +1,15 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
 import { ItemCategory } from '../components/ItemCategory';
 import { AppDispatch } from '../store';
 import { getItems } from '../store/reducers/cartReducer';
+
 import { MainContentContainer } from './styles';
 
 interface HomeServerProps {

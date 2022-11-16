@@ -1,9 +1,14 @@
-import Image from 'next/image';
-import { Receipt, MagnifyingGlass, SignOut, SignIn } from 'phosphor-react';
 import { signOut } from 'next-auth/react';
+import { useSelector } from 'react-redux';
 import { deleteCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import { Receipt, MagnifyingGlass, SignOut, SignIn } from 'phosphor-react';
 
-import logoImg from '../../assets/food_delivery_logo.svg';
+import Link from 'next/link';
+import Image from 'next/image';
+
+import { RootState } from '../../store';
+
 import {
 	CartContainer,
 	HeaderContainer,
@@ -11,11 +16,8 @@ import {
 	SearchInputForm,
 	SignButton,
 } from './styles';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 
+import logoImg from '../../assets/food_delivery_logo.svg';
 interface CartItem {
 	id: string;
 	name: string;
