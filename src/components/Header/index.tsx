@@ -29,7 +29,7 @@ interface HeaderProps {
 	isUserLogged?: boolean;
 }
 
-export const Header = ({ isUserLogged }: HeaderProps) => {
+export const Header = ({ isUserLogged = false }: HeaderProps) => {
 	// Items from cart
 	const cart = useSelector<RootState>(state => state.cart.value) as CartItem[];
 
