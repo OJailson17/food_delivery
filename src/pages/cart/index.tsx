@@ -22,10 +22,12 @@ import {
 	CartItemsContainer,
 	CartMainContainer,
 	DoubleInput,
+	EmptyCart,
 	FinishOrderButton,
 	FormAddressContainer,
 	FormInput,
 } from './styles';
+import { ShoppingCart } from 'phosphor-react';
 
 interface Item {
 	id: string;
@@ -152,13 +154,21 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 					<h2>Meu Pedido</h2>
 
 					{/* Cart items */}
-					<CartItems>
-						{cart.map(item => (
-							<CartItem key={item.id} item={item} />
-						))}
-					</CartItems>
-
-					<p className='total-price'>Total: {formatPrice(totalPrice())}</p>
+					{cart.length > 0 ? (
+						<>
+							<CartItems>
+								{cart.map(item => (
+									<CartItem key={item.id} item={item} />
+								))}
+							</CartItems>
+							<p className='total-price'>Total: {formatPrice(totalPrice())}</p>
+						</>
+					) : (
+						<EmptyCart>
+							<ShoppingCart />
+							<p>Carrinho vazio</p>
+						</EmptyCart>
+					)}
 				</CartItemsContainer>
 
 				{/* TODO Finish form styling */}

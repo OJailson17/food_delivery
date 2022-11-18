@@ -100,7 +100,6 @@ export const FormInput = styled.div`
 export const DoubleInput = styled.div`
 	width: 90%;
 	display: flex;
-	/* align-items: center; */
 	gap: 1rem;
 
 	div {
@@ -137,5 +136,26 @@ export const FinishOrderButton = styled.button`
 	&:disabled {
 		filter: brightness(50%);
 		cursor: not-allowed;
+	}
+`;
+
+export const EmptyCart = styled.div`
+	width: 100%;
+	margin-top: 2rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	svg {
+		width: 5rem;
+		height: 5rem;
+		color: ${props => props.theme.placeholder};
+	}
+
+	p {
+		margin-top: 1rem;
+		color: ${props => props.theme.placeholder};
+		font-weight: 500;
 	}
 `;
