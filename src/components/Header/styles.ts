@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const HeaderContainer = styled.header`
 	width: 100%;
@@ -16,6 +17,18 @@ export const HeaderContainer = styled.header`
 		width: 12.3rem;
 		height: 1.88rem;
 	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 0 1rem;
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 0 3rem;
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		padding: 0 4rem;
+	}
 `;
 
 export const HeaderNavContent = styled.nav`
@@ -25,6 +38,11 @@ export const HeaderNavContent = styled.nav`
 	align-items: center;
 	justify-content: flex-end;
 	gap: 2rem;
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		width: 55%;
+		gap: 1rem;
+	}
 `;
 
 export const SearchInputForm = styled.form`
@@ -55,6 +73,14 @@ export const SearchInputForm = styled.form`
 			color: ${props => props.theme.placeholder};
 		}
 	}
+
+	@media ${device.mobileS} and (max-width: 1023px) {
+		display: none;
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		width: 50%;
+	}
 `;
 
 export const CartContainer = styled(Link)`
@@ -76,6 +102,10 @@ export const CartContainer = styled(Link)`
 
 	&:hover {
 		filter: brightness(90%);
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		width: 50%;
 	}
 `;
 
