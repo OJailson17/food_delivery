@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import * as yup from 'yup';
 
 import { api } from '../../lib/axios';
 import { GoogleButton } from '../../styles/common';
@@ -17,14 +18,39 @@ import {
 } from './styles';
 
 import logoImg from '../../assets/food_delivery_logo.svg';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface IFormReturn {
 	email: string;
 	password: string;
 }
 
+const schema = yup.object({
+	email: yup
+		.string()
+		.email('Email precisa ser válido')
+		.min(3, 'No mínimo 3 caracteres')
+		.trim()
+		.required('Campo obrigatório'),
+	password: yup
+		.string()
+		.min(6, 'No mínimo 6 caracteres')
+		.trim()
+		.required('Campo obrigatório'),
+});
+
 const Login = () => {
-	const { register, handleSubmit } = useForm<IFormReturn>();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<IFormReturn>({
+		defaultValues: {
+			email: '',
+			password: '',
+		},
+		resolver: yupResolver(schema),
+	});
 
 	const router = useRouter();
 
@@ -65,6 +91,7 @@ const Login = () => {
 								placeholder='Exemplo: john.doe@exemplo.com'
 								{...register('email')}
 							/>
+							<span>{errors.email?.message}</span>
 						</div>
 
 						<div>
@@ -74,6 +101,7 @@ const Login = () => {
 								placeholder='No mínimo 6 caracteres'
 								{...register('password')}
 							/>
+							<span>{errors.password?.message}</span>
 						</div>
 
 						<button type='submit'>Entrar</button>
