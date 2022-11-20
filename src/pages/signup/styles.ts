@@ -76,6 +76,12 @@ export const SignUpForm = styled.form`
 		}
 	}
 
+	span {
+		color: ${props => props.theme.danger};
+		font-size: 0.875rem;
+		text-align: left;
+	}
+
 	button {
 		width: 100%;
 		height: 3rem;
