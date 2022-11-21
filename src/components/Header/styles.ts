@@ -18,7 +18,7 @@ export const HeaderContainer = styled.header`
 		height: 1.88rem;
 	}
 
-	@media ${device.tablet} and (max-width: 1023px) {
+	@media ${device.mobileS} and (max-width: 767px) {
 		padding: 0 1rem;
 	}
 
@@ -83,7 +83,11 @@ export const SearchInputForm = styled.form`
 	}
 `;
 
-export const CartContainer = styled(Link)`
+interface ICartContainer {
+	cartitems: number;
+}
+
+export const CartContainer = styled(Link)<ICartContainer>`
 	width: 100%;
 	max-width: 13.6rem;
 	height: 3rem;
@@ -100,8 +104,32 @@ export const CartContainer = styled(Link)`
 	font-weight: 500;
 	font-size: 0.875rem;
 
+	svg {
+		width: 2rem;
+		height: 2rem;
+	}
+
 	&:hover {
 		filter: brightness(90%);
+	}
+
+	@media ${device.mobileM} and (max-width: 767px) {
+		width: 50%;
+		padding: 0.5rem 0.5rem;
+
+		span {
+			display: none;
+		}
+
+		&::after {
+			content: '(${({ cartitems = 0 }) => cartitems})';
+			font-size: 1rem;
+		}
+
+		svg {
+			width: 2rem;
+			height: 2rem;
+		}
 	}
 
 	@media ${device.laptop} and (max-width: 1300px) {
@@ -122,9 +150,18 @@ export const SignButton = styled.button`
 
 	svg {
 		color: ${props => props.theme.white};
+		width: 2rem;
+		height: 2rem;
 	}
 
 	&:hover {
 		transform: scale(1.1);
+	}
+
+	@media ${device.mobileM} and (max-width: 767px) {
+		svg {
+			width: 1.7rem;
+			height: 1.7rem;
+		}
 	}
 `;

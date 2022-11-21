@@ -55,16 +55,16 @@ export const Header = ({ isUserLogged = false }: HeaderProps) => {
 					<input type='text' placeholder='Busque pelas opções de prato' />
 				</SearchInputForm>
 
-				<CartContainer href='/cart'>
-					<Receipt size={32} />
-					Meu pedido ({cart.length})
+				<CartContainer href='/cart' cartitems={cart.length}>
+					<Receipt />
+					<span>Meu pedido ({cart.length})</span>
 				</CartContainer>
 
 				<SignButton
 					title={isUserLogged ? 'Sair' : 'Entrar'}
 					onClick={isUserLogged ? handleSignOut : handleSignIn}
 				>
-					{isUserLogged ? <SignOut size={32} /> : <SignIn size={32} />}
+					{isUserLogged ? <SignOut /> : <SignIn />}
 				</SignButton>
 			</HeaderNavContent>
 		</HeaderContainer>

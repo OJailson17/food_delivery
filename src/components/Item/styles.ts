@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const ItemContainer = styled.div`
-	width: 18.75rem;
+	width: 100%;
 	min-width: 18.75rem;
+	min-height: 32rem;
 	padding: 3.5rem 0 2.5rem;
 
 	display: flex;

@@ -12,7 +12,7 @@ export const HeroContainer = styled.section`
 	justify-content: center;
 	position: relative;
 
-	@media ${device.mobileL} and (max-width: 767px) {
+	@media ${device.mobileS} and (max-width: 767px) {
 		padding: 0 1rem;
 	}
 
