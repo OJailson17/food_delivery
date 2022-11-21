@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const HeroContainer = styled.section`
 	width: 100%;
@@ -10,6 +11,18 @@ export const HeroContainer = styled.section`
 	align-items: center;
 	justify-content: center;
 	position: relative;
+
+	@media ${device.mobileL} and (max-width: 767px) {
+		padding: 0 1rem;
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 0 3rem;
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		padding: 0 4rem;
+	}
 `;
 
 export const HeroContent = styled.div`
@@ -45,5 +58,37 @@ export const HeroContent = styled.div`
 	span {
 		font-weight: 400;
 		font-size: 1rem;
+	}
+
+	@media ${device.mobileS} and (max-width: 1023px) {
+		text-align: center;
+		/* flex-direction: column; */
+
+		img {
+			display: none;
+		}
+
+		div {
+			left: 0;
+		}
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		/* background-color: green; */
+
+		img {
+			width: 35.625rem;
+			height: 22.875rem;
+			bottom: 3.3rem;
+			left: -3rem;
+		}
+
+		div {
+			left: 0;
+		}
+
+		p {
+			font-size: 2.4rem;
+		}
 	}
 `;
