@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const CartMainContainer = styled.main`
 	width: 100%;
@@ -12,6 +13,31 @@ export const CartMainContainer = styled.main`
 	h2 {
 		font-size: 2rem;
 		font-weight: 500;
+	}
+
+	@media ${device.mobileS} and (max-width: 1023px) {
+		flex-direction: column;
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		padding: 0 1rem;
+
+		h2 {
+			font-size: 1.5rem;
+			/* background-color: red; */
+		}
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 0 3rem;
+
+		h2 {
+			font-size: 1.7rem;
+		}
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		padding: 0 4rem;
 	}
 `;
 
@@ -37,6 +63,10 @@ export const CartItems = styled.div`
 export const AddressContainer = styled.div`
 	width: 100%;
 	max-width: 33.125rem;
+
+	@media ${device.mobileS} and (max-width: 1023px) {
+		margin-top: 2.5rem;
+	}
 `;
 
 export const FormAddressContainer = styled.form`
@@ -46,6 +76,10 @@ export const FormAddressContainer = styled.form`
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		align-items: center;
+	}
 `;
 
 export const FormInput = styled.div`
@@ -54,6 +88,7 @@ export const FormInput = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 0.2rem;
+	/* background-color: green; */
 
 	label {
 		color: ${props => props.theme.span};
@@ -95,6 +130,14 @@ export const FormInput = styled.div`
 		color: ${props => props.theme.danger};
 		font-size: 0.875rem;
 	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		/* width: 90%; */
+
+		input {
+			width: 100%;
+		}
+	}
 `;
 
 export const DoubleInput = styled.div`
@@ -107,6 +150,12 @@ export const DoubleInput = styled.div`
 	}
 
 	input {
+		width: 100%;
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		flex-direction: column;
+
 		width: 100%;
 	}
 `;
@@ -136,6 +185,10 @@ export const FinishOrderButton = styled.button`
 	&:disabled {
 		filter: brightness(50%);
 		cursor: not-allowed;
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		width: 100%;
 	}
 `;
 
