@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const SuccessMainContainer = styled.main`
 	width: 100%;
@@ -12,6 +13,18 @@ export const SuccessMainContainer = styled.main`
 	h2 {
 		font-size: 2rem;
 		font-weight: 500;
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		padding: 0 1rem;
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 0 3rem;
+	}
+
+	@media ${device.laptop} and (max-width: 1300px) {
+		padding: 0 4rem;
 	}
 `;
 
@@ -35,6 +48,19 @@ export const PaymentApproved = styled.div`
 
 	p {
 		font-size: 1.5rem;
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		width: 100%;
+
+		svg {
+			width: 8rem;
+			height: 8rem;
+		}
+
+		p {
+			font-size: 1.2rem;
+		}
 	}
 `;
 
