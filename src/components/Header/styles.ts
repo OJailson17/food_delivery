@@ -39,6 +39,11 @@ export const HeaderNavContent = styled.nav`
 	justify-content: flex-end;
 	gap: 2rem;
 
+	@media ${device.mobileS} and (max-width: 374px) {
+		/* background-color: red; */
+		gap: 0.5rem;
+	}
+
 	@media ${device.tablet} and (max-width: 1023px) {
 		width: 55%;
 		gap: 1rem;
@@ -112,15 +117,26 @@ export const CartContainer = styled(Link)<ICartContainer>`
 	&:hover {
 		filter: brightness(90%);
 	}
+	@media ${device.mobileS} and (max-width: 374px) {
+		width: 2rem;
+		height: 2rem;
 
-	@media ${device.mobileM} and (max-width: 767px) {
+		svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
 		width: 50%;
 		padding: 0.5rem 0.5rem;
 
 		span {
 			display: none;
 		}
+	}
 
+	@media ${device.mobileM} and (max-width: 767px) {
 		&::after {
 			content: '(${({ cartitems = 0 }) => cartitems})';
 			font-size: 1rem;
