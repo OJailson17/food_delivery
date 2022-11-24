@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const ItemCategoryContainer = styled.div`
 	width: 100%;

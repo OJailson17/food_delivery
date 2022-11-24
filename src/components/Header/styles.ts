@@ -117,6 +117,7 @@ export const CartContainer = styled(Link)<ICartContainer>`
 	&:hover {
 		filter: brightness(90%);
 	}
+
 	@media ${device.mobileS} and (max-width: 374px) {
 		width: 2rem;
 		height: 2rem;

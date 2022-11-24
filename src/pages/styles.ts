@@ -11,7 +11,7 @@ export const MainContentContainer = styled.main`
 	align-items: center;
 	justify-content: center;
 
-	@media ${device.mobileM} and (max-width: 1023px) {
+	@media ${device.mobileS} and (max-width: 1023px) {
 		padding: 0 1rem;
 	}
 
