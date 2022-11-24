@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const LoginMainContainer = styled.main`
 	width: 100%;
@@ -7,6 +8,11 @@ export const LoginMainContainer = styled.main`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		height: 100%;
+		margin-bottom: 2rem;
+	}
 `;
 
 export const LoginContentContainer = styled.div`
@@ -16,6 +22,19 @@ export const LoginContentContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		width: 90%;
+		margin-top: 2rem;
+
+		flex-direction: column;
+		justify-content: center;
+		gap: 2rem;
+
+		.logo {
+			width: 15.625rem;
+		}
+	}
 `;
 
 export const LoginFormContainer = styled.div`
@@ -45,6 +64,10 @@ export const LoginFormContainer = styled.div`
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		padding: 2rem;
 	}
 `;
 

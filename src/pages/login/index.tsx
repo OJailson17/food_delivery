@@ -78,7 +78,7 @@ const Login = () => {
 	return (
 		<LoginMainContainer>
 			<LoginContentContainer>
-				<Image src={logoImg} alt='' priority />
+				<Image src={logoImg} alt='' className='logo' priority />
 
 				<LoginFormContainer>
 					<h2>Faça login</h2>
