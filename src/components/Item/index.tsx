@@ -8,7 +8,13 @@ import { AppDispatch, RootState } from '../../store';
 import { addItem, removeItemByOne } from '../../store/reducers/cartReducer';
 import { formatPrice } from '../../utils/formatPrice';
 
-import { IncludeButton, ItemActions, ItemContainer, ItemImage } from './styles';
+import {
+	IncludeButton,
+	ItemActions,
+	ItemContainer,
+	ItemContent,
+	ItemImage,
+} from './styles';
 interface Items {
 	id: number;
 	title: string;
@@ -80,17 +86,19 @@ export const Item = ({ items }: ItemProps) => {
 
 	return (
 		<ItemContainer>
-			{/* image */}
-			<ItemImage>
-				<Image src={items.image} alt='' width={176} height={176} />
-			</ItemImage>
+			<ItemContent href={`/item/${items.id}`}>
+				{/* image */}
+				<ItemImage>
+					<Image src={items.image} alt='' width={176} height={176} />
+				</ItemImage>
 
-			{/* title */}
-			<p className='item-title'>{items.title} &gt;</p>
-			<span className='item-description'>{items.description}</span>
+				{/* title */}
+				<p className='item-title'>{items.title} &gt;</p>
+				<span className='item-description'>{items.description}</span>
 
-			{/* price */}
-			<p className='item-price'>{formatPrice(items.price)}</p>
+				{/* price */}
+				<p className='item-price'>{formatPrice(items.price)}</p>
+			</ItemContent>
 
 			{/* actions */}
 			<ItemActions>
@@ -99,7 +107,7 @@ export const Item = ({ items }: ItemProps) => {
 						<Minus size={24} />
 					</button>
 					<div>{itemQtd || 0}</div>
-					<button>
+					<button onClick={handleAddItemToCart}>
 						<Plus size={24} />
 					</button>
 				</div>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export const ItemContainer = styled.div`
@@ -39,6 +40,15 @@ export const ItemContainer = styled.div`
 		font-weight: 400;
 		color: ${props => props.theme.blue100};
 	}
+`;
+
+export const ItemContent = styled(Link)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	text-decoration: none;
 `;
 
 export const ItemImage = styled.div`
