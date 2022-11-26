@@ -86,7 +86,7 @@ const SignUp = () => {
 	return (
 		<SignUpMainContainer>
 			<SignUpContentContainer>
-				<Image src={logoImg} alt='' priority />
+				<Image src={logoImg} alt='' className='logo' priority />
 
 				<SignUpFormContainer>
 					<h2>Crie sua conta</h2>

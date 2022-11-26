@@ -1,12 +1,18 @@
 import styled from 'styled-components';
+import { device } from '../../styles/breakpoint';
 
 export const SignUpMainContainer = styled.main`
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		height: 100%;
+		margin-bottom: 2rem;
+	}
 `;
 
 export const SignUpContentContainer = styled.div`
@@ -16,6 +22,38 @@ export const SignUpContentContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
+	@media ${device.laptop} {
+		padding: 1rem 0;
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		width: 90%;
+		height: 100%;
+		margin: 2rem 0;
+
+		align-items: center;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 2rem;
+
+		.logo {
+			width: 15.625rem;
+		}
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		width: 90%;
+		margin-top: 2rem;
+
+		flex-direction: column;
+		justify-content: center;
+		gap: 2rem;
+
+		.logo {
+			width: 15.625rem;
+		}
+	}
 `;
 
 export const SignUpFormContainer = styled.div`
@@ -45,6 +83,16 @@ export const SignUpFormContainer = styled.div`
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 2rem;
+		width: 60%;
+		height: 100%;
+	}
+
+	@media ${device.mobileS} and (max-width: 767px) {
+		padding: 2rem;
 	}
 `;
 
