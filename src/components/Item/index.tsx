@@ -67,21 +67,17 @@ export const Item = ({ items }: ItemProps) => {
 		);
 	};
 
-	// Get item quantity and add in state
-	const getItemQtd = () => {
-		for (const cartItem of cart) {
-			if (cartItem.id === items.id) {
-				setItemQtd(cartItem.quantity);
-				return;
-			}
-		}
-		// If there is nothing in array, set item quantity to 0
-		setItemQtd(0);
-	};
-
 	// Every time cart change value, get item quantity from cart
 	useEffect(() => {
-		getItemQtd();
+		// Get item quantity from cart
+		const cartItem = cart.find(item => Number(item.id) === Number(items.id));
+
+		if (cartItem) {
+			setItemQtd(cartItem.quantity);
+		} else {
+			// If there is nothing in array, set item quantity to 0
+			setItemQtd(0);
+		}
 	}, [cart]);
 
 	return (
