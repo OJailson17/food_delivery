@@ -96,7 +96,7 @@ const ItemDetailsPage = () => {
 
 			<ItemDetailMainContainer>
 				<BackBtn href='/'>
-					<CaretLeft size={32} />
+					<CaretLeft />
 					<span>Voltar</span>
 				</BackBtn>
 
