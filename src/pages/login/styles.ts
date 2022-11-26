@@ -23,6 +23,21 @@ export const LoginContentContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 
+	@media ${device.tablet} and (max-width: 1023px) {
+		width: 90%;
+		height: 100%;
+		margin-top: 2rem;
+
+		align-items: center;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 2rem;
+
+		.logo {
+			width: 15.625rem;
+		}
+	}
+
 	@media ${device.mobileS} and (max-width: 767px) {
 		width: 90%;
 		margin-top: 2rem;
@@ -64,6 +79,11 @@ export const LoginFormContainer = styled.div`
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+
+	@media ${device.tablet} and (max-width: 1023px) {
+		padding: 2rem;
+		width: 60%;
 	}
 
 	@media ${device.mobileS} and (max-width: 767px) {
