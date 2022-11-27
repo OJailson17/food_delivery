@@ -16,6 +16,8 @@ export const authOptions = {
 	],
 	callbacks: {
 		async session({ session }: { session: Session }): Promise<Session> {
+			console.log(session);
+
 			return session;
 		},
 
@@ -58,6 +60,7 @@ export const authOptions = {
 			return baseUrl;
 		},
 	},
+	secret: `${process.env.NEXTAUTH_SECRET}`,
 };
 
 export default NextAuth(authOptions);
