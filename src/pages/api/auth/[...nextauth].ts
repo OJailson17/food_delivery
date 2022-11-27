@@ -52,8 +52,8 @@ export const authOptions = {
 		},
 
 		async redirect({ url, baseUrl }) {
-			// console.log({ url, baseUrl });
-
+			console.log({ url, baseUrl });
+			baseUrl = 'http://localhost:3000/login';
 			return baseUrl;
 		},
 	},
