@@ -56,7 +56,7 @@ export const authOptions = {
 		},
 
 		async redirect({ baseUrl }: { baseUrl: string }): Promise<string> {
-			baseUrl = 'http://localhost:3000/login';
+			baseUrl = `${process.env.BASE_URL}`;
 			return baseUrl;
 		},
 	},
