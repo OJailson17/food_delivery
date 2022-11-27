@@ -2,7 +2,7 @@ import { query as q } from 'faunadb';
 import GoogleProvider from 'next-auth/providers/google';
 import { randomUUID } from 'crypto';
 
-import NextAuth from 'next-auth';
+import NextAuth, { Session, SignIn } from 'next-auth';
 
 import { fauna } from '../../../lib/faunadb';
 
@@ -15,11 +15,11 @@ export const authOptions = {
 		}),
 	],
 	callbacks: {
-		async session(session) {
+		async session({ session }: { session: Session }): Promise<Session> {
 			return session;
 		},
 
-		async signIn({ user, account, profile }) {
+		async signIn({ user }: SignIn): Promise<boolean> {
 			const { email, name, image } = user;
 
 			const userData = {
@@ -34,12 +34,14 @@ export const authOptions = {
 				const savedUser = await fauna.query(
 					q.If(
 						q.Not(
-							q.Exists(q.Match(q.Index('user_by_email'), q.Casefold(email))),
+							q.Exists(
+								q.Match(q.Index('user_by_email'), q.Casefold(email || '')),
+							),
 						),
 						q.Create(q.Collection('users'), {
 							data: userData,
 						}),
-						q.Get(q.Match(q.Index('user_by_email'), q.Casefold(email))),
+						q.Get(q.Match(q.Index('user_by_email'), q.Casefold(email || ''))),
 					),
 				);
 				console.log({ savedUser });
@@ -51,8 +53,7 @@ export const authOptions = {
 			}
 		},
 
-		async redirect({ url, baseUrl }) {
-			console.log({ url, baseUrl });
+		async redirect({ baseUrl }: { baseUrl: string }): Promise<string> {
 			baseUrl = 'http://localhost:3000/login';
 			return baseUrl;
 		},

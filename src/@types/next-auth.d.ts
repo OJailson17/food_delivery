@@ -15,7 +15,9 @@ declare module 'next-auth' {
 
 	interface SignIn {
 		user: {
-			name: string;
+			name?: string | null;
+			email?: string | null;
+			image?: string | null;
 		};
 	}
 }
