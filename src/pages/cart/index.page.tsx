@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button as FinishOrderButton } from 'rsuite';
 
 import * as yup from 'yup';
 
@@ -16,6 +17,8 @@ import { AppDispatch, RootState } from '../../store';
 import { getItems } from '../../store/reducers/cartReducer';
 import { formatPrice } from '../../utils/formatPrice';
 
+// Default CSS
+import 'rsuite/dist/rsuite.min.css';
 import {
 	AddressContainer,
 	CartItems,
@@ -23,10 +26,11 @@ import {
 	CartMainContainer,
 	DoubleInput,
 	EmptyCart,
-	FinishOrderButton,
+	// FinishOrderButton,
 	FormAddressContainer,
 	FormInput,
 } from './styles';
+
 import { ShoppingCart } from 'phosphor-react';
 
 interface Item {
@@ -81,7 +85,8 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+
+		formState: { errors, isSubmitting },
 	} = useForm<IFormInputs>({
 		defaultValues: {
 			name: '',
@@ -235,9 +240,11 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 
 						<FinishOrderButton
 							type='submit'
+							loading={isSubmitting}
+							className='order-submit'
 							disabled={cart.length <= 0 ? true : false}
 						>
-							Finalizar pedidio
+							Finalizar Pedido
 						</FinishOrderButton>
 					</FormAddressContainer>
 				</AddressContainer>

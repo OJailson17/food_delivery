@@ -77,6 +77,38 @@ export const FormAddressContainer = styled.form`
 	flex-direction: column;
 	gap: 1rem;
 
+	.order-submit {
+		width: 90%;
+		height: 3rem;
+		margin-top: 1rem;
+		padding: 1rem 2rem;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		background-color: ${props => props.theme.blue};
+		color: ${props => props.theme.white};
+		border: 1px solid transparent;
+		border-radius: 5px;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 1rem;
+
+		&:hover {
+			filter: brightness(90%);
+		}
+
+		&:disabled {
+			filter: brightness(50%);
+			cursor: not-allowed;
+		}
+
+		@media ${device.mobileS} and (max-width: 767px) {
+			width: 100%;
+		}
+	}
+
 	@media ${device.mobileS} and (max-width: 767px) {
 		align-items: center;
 	}
@@ -160,37 +192,37 @@ export const DoubleInput = styled.div`
 	}
 `;
 
-export const FinishOrderButton = styled.button`
-	width: 90%;
-	height: 3rem;
-	margin-top: 1rem;
-	padding: 1rem 2rem;
+// export const FinishOrderButton = styled.button`
+// 	width: 90%;
+// 	height: 3rem;
+// 	margin-top: 1rem;
+// 	padding: 1rem 2rem;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
 
-	background-color: ${props => props.theme.blue};
-	color: ${props => props.theme.white};
-	border: 1px solid transparent;
-	border-radius: 5px;
-	text-decoration: none;
-	font-weight: 500;
-	font-size: 1rem;
+// 	background-color: ${props => props.theme.blue};
+// 	color: ${props => props.theme.white};
+// 	border: 1px solid transparent;
+// 	border-radius: 5px;
+// 	text-decoration: none;
+// 	font-weight: 500;
+// 	font-size: 1rem;
 
-	&:hover {
-		filter: brightness(90%);
-	}
+// 	&:hover {
+// 		filter: brightness(90%);
+// 	}
 
-	&:disabled {
-		filter: brightness(50%);
-		cursor: not-allowed;
-	}
+// 	&:disabled {
+// 		filter: brightness(50%);
+// 		cursor: not-allowed;
+// 	}
 
-	@media ${device.mobileS} and (max-width: 767px) {
-		width: 100%;
-	}
-`;
+// 	@media ${device.mobileS} and (max-width: 767px) {
+// 		width: 100%;
+// 	}
+// `;
 
 export const EmptyCart = styled.div`
 	width: 100%;
