@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,6 +14,7 @@ import { api } from '../../lib/axios';
 import { GoogleButton } from '../../styles/common';
 
 import 'rsuite/dist/rsuite.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import {
 	SignUpContentContainer,
 	SignUpForm,
@@ -22,6 +24,7 @@ import {
 
 import logoImg from '../../assets/food_delivery_logo.svg';
 import { Button } from 'rsuite';
+import Head from 'next/head';
 
 interface IFormReturn {
 	name: string;
@@ -70,9 +73,13 @@ const SignUp = () => {
 		try {
 			const response = await api.post('/api/auth/register', data);
 
-			// TODO create a toast to show the error
-			if (response.data?.error?.description === 'User already exists') {
-				alert('Usuário já existe');
+			// If there is some error, show on the toast
+			if (response.data.error) {
+				toast(response.data.error?.description, {
+					type: 'error',
+					position: 'top-center',
+					theme: 'dark',
+				});
 				router.push('/login');
 			}
 
@@ -80,75 +87,86 @@ const SignUp = () => {
 				router.push('/');
 			}
 		} catch (error) {
+			toast('Server error', {
+				type: 'error',
+				position: 'top-center',
+				theme: 'dark',
+			});
 			console.log(error);
 		}
 	};
 
 	return (
-		<SignUpMainContainer>
-			<SignUpContentContainer>
-				<Image src={logoImg} alt='' className='logo' priority />
+		<>
+			<Head>
+				<title>Registrar | Food Delivery</title>
+			</Head>
+			<ToastContainer />
+			<SignUpMainContainer>
+				<SignUpContentContainer>
+					<Image src={logoImg} alt='' className='logo' priority />
 
-				<SignUpFormContainer>
-					<h2>Crie sua conta</h2>
+					<SignUpFormContainer>
+						<h2>Crie sua conta</h2>
 
-					<SignUpForm onSubmit={handleSubmit(handleSignUp)}>
-						<div>
-							<label htmlFor='name'>Nome</label>
-							<input
-								type='name'
-								placeholder='Exemplo: John Doe'
-								{...register('name')}
+						<SignUpForm onSubmit={handleSubmit(handleSignUp)}>
+							<div>
+								<label htmlFor='name'>Nome</label>
+								<input
+									type='name'
+									placeholder='Exemplo: John Doe'
+									{...register('name')}
+								/>
+								<span>{errors.name?.message}</span>
+							</div>
+
+							<div>
+								<label htmlFor='email'>Email</label>
+								<input
+									type='email'
+									placeholder='Exemplo: john.doe@exemplo.com'
+									{...register('email')}
+								/>
+								<span>{errors.email?.message}</span>
+							</div>
+
+							<div>
+								<label htmlFor='password'>Senha</label>
+								<input
+									type='password'
+									placeholder='No mínimo 6 caracteres'
+									{...register('password')}
+								/>
+								<span>{errors.password?.message}</span>
+							</div>
+
+							<Button
+								type='submit'
+								loading={isSubmitting}
+								className='submitButton'
+							>
+								Criar conta
+							</Button>
+						</SignUpForm>
+
+						<span>ou</span>
+
+						{/* Google button */}
+						<GoogleButton onClick={() => signIn()}>
+							<Image
+								src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg'
+								alt=''
+								width='20'
+								height='20'
 							/>
-							<span>{errors.name?.message}</span>
-						</div>
+							Cadastrar com o Google
+						</GoogleButton>
 
-						<div>
-							<label htmlFor='email'>Email</label>
-							<input
-								type='email'
-								placeholder='Exemplo: john.doe@exemplo.com'
-								{...register('email')}
-							/>
-							<span>{errors.email?.message}</span>
-						</div>
-
-						<div>
-							<label htmlFor='password'>Senha</label>
-							<input
-								type='password'
-								placeholder='No mínimo 6 caracteres'
-								{...register('password')}
-							/>
-							<span>{errors.password?.message}</span>
-						</div>
-
-						<Button
-							type='submit'
-							loading={isSubmitting}
-							className='submitButton'
-						>
-							Criar conta
-						</Button>
-					</SignUpForm>
-
-					<span>ou</span>
-
-					{/* Google button */}
-					<GoogleButton onClick={() => signIn()}>
-						<Image
-							src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg'
-							alt=''
-							width='20'
-							height='20'
-						/>
-						Cadastrar com o Google
-					</GoogleButton>
-
-					<Link href='/login'>Já tenho uma conta</Link>
-				</SignUpFormContainer>
-			</SignUpContentContainer>
-		</SignUpMainContainer>
+						<Link href='/login'>Já tenho uma conta</Link>
+					</SignUpFormContainer>
+				</SignUpContentContainer>
+			</SignUpMainContainer>
+		</>
 	);
 };
 
