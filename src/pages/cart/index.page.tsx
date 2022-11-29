@@ -32,6 +32,7 @@ import {
 } from './styles';
 
 import { ShoppingCart } from 'phosphor-react';
+import Head from 'next/head';
 
 interface Item {
 	id: string;
@@ -152,6 +153,10 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 
 	return (
 		<>
+			<Head>
+				<title>Carrinho | Food Delivery</title>
+			</Head>
+
 			<Header isUserLogged={isUserLogged} />
 
 			<CartMainContainer>

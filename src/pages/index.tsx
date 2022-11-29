@@ -11,6 +11,7 @@ import { AppDispatch } from '../store';
 import { getItems } from '../store/reducers/cartReducer';
 
 import { MainContentContainer } from './styles';
+import Head from 'next/head';
 
 interface HomeServerProps {
 	isUserLogged: boolean;
@@ -26,6 +27,10 @@ export default function Home({ isUserLogged }: HomeServerProps) {
 
 	return (
 		<>
+			<Head>
+				<title>Home | Food Delivery</title>
+			</Head>
+
 			<Header isUserLogged={isUserLogged} />
 			<Hero />
 

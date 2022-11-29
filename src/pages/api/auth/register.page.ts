@@ -20,8 +20,6 @@ interface SavedUserResponse {
 const SignUp = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { name, email, password } = req.body;
 
-	console.table(req.body);
-
 	const userData: User = {
 		id: randomUUID(),
 		name,

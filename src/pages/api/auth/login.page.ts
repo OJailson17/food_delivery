@@ -19,8 +19,6 @@ interface SavedUserResponse {
 const SignIn = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { email, password } = req.body;
 
-	console.table(req.body);
-
 	try {
 		// Check if email and password are correct, if not throw an error
 		const savedUser: SavedUserResponse = await fauna.query(

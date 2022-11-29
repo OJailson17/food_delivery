@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { CheckCircle } from 'phosphor-react';
 import React from 'react';
 import { Header } from '../../components/Header';
@@ -11,6 +12,10 @@ import {
 const Success = () => {
 	return (
 		<>
+			<Head>
+				<title>Sucesso | Food Delivery</title>
+			</Head>
+
 			<Header />
 
 			<SuccessMainContainer>
