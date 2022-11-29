@@ -40,9 +40,18 @@ const SignUp = async (req: NextApiRequest, res: NextApiResponse) => {
 				}),
 			),
 		);
-		console.log({ savedUser });
 
-		const cookiesData = savedUser.data;
+		// Format the user data before return it
+		const { id, name, email: userEmail, image } = savedUser.data;
+
+		const formattedUser = {
+			id,
+			name,
+			email: userEmail,
+			image,
+		};
+
+		const cookiesData = formattedUser;
 
 		const cookieString = JSON.stringify(cookiesData);
 
@@ -57,7 +66,7 @@ const SignUp = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		return res.status(200).json({
 			success: true,
-			user: savedUser,
+			user: formattedUser,
 		});
 	} catch (error) {
 		return res.json({
