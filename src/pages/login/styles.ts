@@ -125,7 +125,7 @@ export const LoginForm = styled.form`
 		text-align: left;
 	}
 
-	button {
+	button.submitButton {
 		width: 100%;
 		height: 3rem;
 

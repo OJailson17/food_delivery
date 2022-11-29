@@ -12,6 +12,7 @@ import { api } from '../../lib/axios';
 
 import { GoogleButton } from '../../styles/common';
 
+import 'rsuite/dist/rsuite.min.css';
 import {
 	SignUpContentContainer,
 	SignUpForm,
@@ -20,6 +21,7 @@ import {
 } from './styles';
 
 import logoImg from '../../assets/food_delivery_logo.svg';
+import { Button } from 'rsuite';
 
 interface IFormReturn {
 	name: string;
@@ -50,7 +52,7 @@ const SignUp = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<IFormReturn>({
 		defaultValues: {
 			name: '',
@@ -67,7 +69,6 @@ const SignUp = () => {
 
 		try {
 			const response = await api.post('/api/auth/register', data);
-			console.log(response.data);
 
 			// TODO create a toast to show the error
 			if (response.data?.error?.description === 'User already exists') {
@@ -122,7 +123,13 @@ const SignUp = () => {
 							<span>{errors.password?.message}</span>
 						</div>
 
-						<button type='submit'>Criar conta</button>
+						<Button
+							type='submit'
+							loading={isSubmitting}
+							className='submitButton'
+						>
+							Criar conta
+						</Button>
 					</SignUpForm>
 
 					<span>ou</span>

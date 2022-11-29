@@ -10,6 +10,8 @@ import * as yup from 'yup';
 import { api } from '../../lib/axios';
 import { GoogleButton } from '../../styles/common';
 
+import 'rsuite/dist/rsuite.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import {
 	LoginContentContainer,
 	LoginForm,
@@ -19,6 +21,8 @@ import {
 
 import logoImg from '../../assets/food_delivery_logo.svg';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from 'rsuite';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface IFormReturn {
 	email: string;
@@ -43,7 +47,7 @@ const Login = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<IFormReturn>({
 		defaultValues: {
 			email: '',
@@ -55,28 +59,36 @@ const Login = () => {
 	const router = useRouter();
 
 	const handleSignIn = async (data: IFormReturn) => {
-		console.log(data);
-
 		try {
 			const response = await api.post('/api/auth/login', data);
-			console.log(response.data);
 
-			// TODO create a toast to show the error
-			if (response.data?.error?.description === 'User already exists') {
-				alert('Usuário já existe');
+			// If there is some error, show on the toast
+			if (response.data.error) {
+				toast(response.data.error?.description, {
+					type: 'error',
+					position: 'top-center',
+					theme: 'dark',
+				});
 				router.push('/login');
 			}
 
+			// If request return 200, redirect to home page
 			if (response.data.success) {
 				router.push('/');
 			}
 		} catch (error) {
+			toast('Server error', {
+				type: 'error',
+				position: 'top-center',
+				theme: 'dark',
+			});
 			console.log(error);
 		}
 	};
 
 	return (
 		<LoginMainContainer>
+			<ToastContainer />
 			<LoginContentContainer>
 				<Image src={logoImg} alt='' className='logo' priority />
 
@@ -104,7 +116,13 @@ const Login = () => {
 							<span>{errors.password?.message}</span>
 						</div>
 
-						<button type='submit'>Entrar</button>
+						<Button
+							type='submit'
+							loading={isSubmitting}
+							className='submitButton'
+						>
+							Entrar
+						</Button>
 					</LoginForm>
 
 					<span>ou</span>
