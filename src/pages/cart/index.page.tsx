@@ -139,8 +139,6 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 					sessionId,
 				});
 			}
-
-			console.log(response.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -186,7 +184,10 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 					<h2>Endereço</h2>
 
 					{/* Address form */}
-					<FormAddressContainer onSubmit={handleSubmit(handleFinishOrder)}>
+					<FormAddressContainer
+						onSubmit={handleSubmit(handleFinishOrder)}
+						autoComplete='off'
+					>
 						<FormInput>
 							<label htmlFor='name'>Nome</label>
 							<input

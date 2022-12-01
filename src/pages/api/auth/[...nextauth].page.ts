@@ -16,8 +16,6 @@ export const authOptions = {
 	],
 	callbacks: {
 		async session({ session }: { session: Session }): Promise<Session> {
-			console.log(session);
-
 			return session;
 		},
 
@@ -46,7 +44,6 @@ export const authOptions = {
 						q.Get(q.Match(q.Index('user_by_email'), q.Casefold(email || ''))),
 					),
 				);
-				console.log({ savedUser });
 
 				return true;
 			} catch (error) {

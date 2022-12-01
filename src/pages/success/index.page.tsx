@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { CheckCircle } from 'phosphor-react';
 import React from 'react';
@@ -37,10 +38,29 @@ const Success = () => {
 
 export default Success;
 
-// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-// 	console.log(req.headers);
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	// get the user session
+	const session = await getSession({ req });
 
-// 	return {
-// 		props: {},
-// 	};
-// };
+	let userCookies;
+
+	if (req.cookies.user) {
+		userCookies = JSON.parse(String(req.cookies.user));
+	}
+
+	// If the user is not authenticated, redirect it to the login page
+	if (!session) {
+		if (!userCookies) {
+			return {
+				redirect: {
+					destination: '/login',
+					permanent: false,
+				},
+			};
+		}
+	}
+
+	return {
+		props: {},
+	};
+};

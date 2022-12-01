@@ -164,10 +164,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		userCookies = JSON.parse(String(req.cookies.user));
 	}
 
-	console.log(session);
-
-	console.log(req.cookies);
-
 	// If the user is already authenticated, redirect it to the home page
 	if (session || userCookies) {
 		return {
