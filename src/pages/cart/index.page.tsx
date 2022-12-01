@@ -139,8 +139,6 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 					sessionId,
 				});
 			}
-
-			console.log(response.data);
 		} catch (error) {
 			console.log(error);
 		}

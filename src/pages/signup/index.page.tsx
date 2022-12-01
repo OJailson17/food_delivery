@@ -68,8 +68,6 @@ const SignUp = () => {
 	const router = useRouter();
 
 	const handleSignUp = async (data: IFormReturn) => {
-		console.log(data);
-
 		try {
 			const response = await api.post('/api/auth/register', data);
 
