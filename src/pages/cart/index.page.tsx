@@ -121,27 +121,31 @@ const Cart = ({ isUserLogged }: CartServerProps) => {
 			return;
 		}
 
-		try {
-			const stripe = await getStripe();
+		localStorage.removeItem('@food_delivery:cart');
+		router.push('/success');
 
-			// Make request to checkout route passing the cart items
-			const response = await api.post('/api/checkout', {
-				items: cart,
-			});
+		// !CODE REMOVED DUE TO FALSE PISHING REPORT
+		// try {
+		// 	const stripe = await getStripe();
 
-			// Get session id from response
-			const { sessionId } = response.data;
+		// 	// Make request to checkout route passing the cart items
+		// 	const response = await api.post('/api/checkout', {
+		// 		items: cart,
+		// 	});
 
-			// If the session id is return in the response, redirect to checkout page
-			if (sessionId) {
-				localStorage.removeItem('@food_delivery:cart');
-				await stripe?.redirectToCheckout({
-					sessionId,
-				});
-			}
-		} catch (error) {
-			console.log(error);
-		}
+		// 	// Get session id from response
+		// 	const { sessionId } = response.data;
+
+		// 	// If the session id is return in the response, redirect to checkout page
+		// 	if (sessionId) {
+		// 		localStorage.removeItem('@food_delivery:cart');
+		// 		await stripe?.redirectToCheckout({
+		// 			sessionId,
+		// 		});
+		// 	}
+		// } catch (error) {
+		// 	console.log(error);
+		// }
 	};
 
 	// Get all local storage items and set in the state
