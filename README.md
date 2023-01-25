@@ -9,7 +9,7 @@ Esse projeto possui as seguintes funcionalidades:
 - Autenticação com o Google _(feature adicional)_
 - Autenticação com email e senha
 - Adição e remoção de itens do carrinho
-- Checkout de pagamento com Stripe _(feature adicional)_
+- Checkout de pagamento com Stripe _(feature adicional)_ - **Funcionalidade removida por sinalização de phishing pelos navegadores**
 
 ## Tecnologias
 
